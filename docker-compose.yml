@@ -13,5 +13,20 @@ services:
     volumes:
       - maria-db:/var/lib/mysql
     restart: always
+  shadow-db:
+    image: mariadb:10.4.12
+    container_name: dclearShadowDB
+    stop_grace_period: 30s
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "8083:3306"
+    volumes:
+      - shadow-maria-db:/var/lib/mysql
+    restart: always
 volumes:
   maria-db:
+  shadow-maria-db:
