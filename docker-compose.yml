@@ -13,6 +13,8 @@ services:
     volumes:
       - maria-db:/var/lib/mysql
     restart: always
+    networks:
+      - dclear-network
   shadow-db:
     image: mariadb:10.4.12
     container_name: dclearShadowDB
@@ -27,6 +29,10 @@ services:
     volumes:
       - shadow-maria-db:/var/lib/mysql
     restart: always
+    networks:
+      - dclear-network
 volumes:
   maria-db:
   shadow-maria-db:
+networks:
+  dclear-network:

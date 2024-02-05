@@ -1,5 +1,5 @@
 import React from "react";
-import Navigation from "./navigation";
+import Navigation from "../../components/site/navigation";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 
