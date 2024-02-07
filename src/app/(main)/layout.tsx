@@ -8,7 +8,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       appearance={{
         baseTheme: dark,
       }}
-    ></ClerkProvider>
+    >
+      {children}
+    </ClerkProvider>
   );
 };
 

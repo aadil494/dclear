@@ -17,10 +17,10 @@ export const getAuthUserDetails = async () => {
     include: {
       Agency: {
         include: {
-          SidebarOptions: true,
-          SubAccounts: {
+          SidebarOption: true,
+          SubAccount: {
             include: {
-              SidebarOptions: true,
+              SidebarOption: true,
             },
           },
         },
@@ -29,6 +29,21 @@ export const getAuthUserDetails = async () => {
     },
   });
   return userData;
+};
+export const saveActivityLogsNotification = async ({
+  agencyId,
+  description,
+  subAccountId,
+}: {
+  agencyId?: string;
+  description: string;
+  subAccountId?: string;
+}) => {
+  const authUser = await currentUser();
+  let userData;
+  if (!authUser) {
+    const response = await db.user.findFirst({});
+  }
 };
 
 export const createTeamUser = async (agencyId: string, user: User) => {
