@@ -11,12 +11,19 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { Form, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { white } from "tailwindcss/colors";
 import { add } from "date-fns";
-import { FormControl, FormField, FormItem, FormLabel } from "../ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
 import FileUpload from "../global/file-upload";
 type Props = {
   data?: Partial<Agency>;
@@ -104,19 +111,18 @@ const AgencyDetailsForm = ({ data }: Props) => {
                   name="agencyLogo"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>
-                        Agency Logo
-                        <FormControl>
-                          <FileUpload
-                            apiEndpoint="agencyLogo"
-                            onChange={field.onChange}
-                            value={field.value}
-                          ></FileUpload>
-                        </FormControl>
-                      </FormLabel>
+                      <FormLabel>Agency Logo</FormLabel>
+                      <FormControl>
+                        <FileUpload
+                          apiEndpoint="agencyLogo"
+                          onChange={field.onChange}
+                          value={field.value}
+                        />
+                      </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
-                ></FormField>
+                />
               </form>
             </Form>
           </CardContent>
