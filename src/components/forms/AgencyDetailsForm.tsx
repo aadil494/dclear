@@ -16,7 +16,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { white } from "tailwindcss/colors";
 import { add } from "date-fns";
-import { FormField } from "../ui/form";
+import { FormControl, FormField, FormItem, FormLabel } from "../ui/form";
+import FileUpload from "../global/file-upload";
 type Props = {
   data?: Partial<Agency>;
 };
@@ -101,6 +102,20 @@ const AgencyDetailsForm = ({ data }: Props) => {
                   disabled={isLoading}
                   control={form.control}
                   name="agencyLogo"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        Agency Logo
+                        <FormControl>
+                          <FileUpload
+                            apiEndpoint="agencyLogo"
+                            onChange={field.onChange}
+                            value={field.value}
+                          ></FileUpload>
+                        </FormControl>
+                      </FormLabel>
+                    </FormItem>
+                  )}
                 ></FormField>
               </form>
             </Form>
