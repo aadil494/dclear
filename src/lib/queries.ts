@@ -3,7 +3,7 @@
 import { clerkClient, currentUser } from "@clerk/nextjs";
 import { db } from "./db";
 import { redirect } from "next/navigation";
-import { User } from "@prisma/client";
+import { Agency, User } from "@prisma/client";
 import { sub } from "date-fns";
 import { Sub } from "@radix-ui/react-dropdown-menu";
 
@@ -183,4 +183,19 @@ export const veriyAndAcceptInvitation = async () => {
     });
     return agency ? agency.agencyId : null;
   }
+};
+
+export const updateAgencyDetails = async (
+  agencyId: string,
+  agencyDetails: Partial<Agency>
+) => {
+  const response = await db.agency.update({
+    data: {
+      ...agencyDetails,
+    },
+    where: {
+      id: agencyId,
+    },
+  });
+  return response;
 };
