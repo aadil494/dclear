@@ -31,6 +31,7 @@ import {
   updateAgencyDetails,
 } from "@/lib/queries";
 import { useRouter } from "next/navigation";
+import { Button } from "../ui/button";
 type Props = {
   data?: Partial<Agency>;
 };
@@ -279,13 +280,12 @@ const AgencyDetailsForm = ({ data }: Props) => {
                   )}
                 />
 
-                {data?.id && (
+                {true && (
                   <div className="flex flex-col gap-2">
                     <FormLabel>Create A Goal</FormLabel>
                     <FormDescription>
-                      {`Goals are a great way to keep track of your agency's
-                    performance. You can create a goal for your agency and track
-                    it's progress from the dashboard.`}
+                      {`✨ Create a goal for your agency. As your business grows
+                    your goals grow too so dont forget to set the bar higher!`}
                     </FormDescription>
                     <NumberInput
                       defaultValue={data?.goal}
@@ -305,6 +305,7 @@ const AgencyDetailsForm = ({ data }: Props) => {
                     />
                   </div>
                 )}
+                <Button type="submit">Save Agency Information</Button>
               </form>
             </Form>
           </CardContent>
