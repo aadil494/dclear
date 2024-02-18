@@ -431,3 +431,9 @@ model AddOns {
 
   @@index([agencyId])
 }
+
+model Country {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(100)
+  iso  String @db.VarChar(2)
+}
