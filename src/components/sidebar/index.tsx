@@ -1,5 +1,6 @@
 import { getAuthUserDetails } from "@/lib/queries";
 import React from "react";
+import MenuOptions from "./menu-options";
 
 type Props = {
   id: string;
@@ -45,7 +46,27 @@ const Sidebar = async ({ id, type }: Props) => {
     )
   );
 
-  return <></>;
+  return (
+    <>
+      <MenuOptions
+        defaultOpen={true}
+        details={details}
+        id={id}
+        sidebarLogo={sideBarLogo}
+        subAccounts={subaccounts}
+        sidebarOptions={sidebarOptions}
+        user={user}
+      />
+      <MenuOptions
+        details={details}
+        id={id}
+        sidebarLogo={sideBarLogo}
+        subAccounts={subaccounts}
+        sidebarOptions={sidebarOptions}
+        user={user}
+      />
+    </>
+  );
 };
 
 export default Sidebar;
