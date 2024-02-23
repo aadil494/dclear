@@ -129,10 +129,9 @@ export const createTeamUser = async (agencyId: string, user: User) => {
   return response;
 };
 
-export const veriyAndAcceptInvitation = async () => {
+export const verifyAndAcceptInvitation = async () => {
   const user = await currentUser();
   if (!user) return redirect("/sign-in");
-
   const invitationExists = await db.invitation.findUnique({
     where: {
       email: user.emailAddresses[0].emailAddress,
@@ -151,11 +150,10 @@ export const veriyAndAcceptInvitation = async () => {
       createdAt: new Date(),
       updatedAt: new Date(),
     });
-
-    // activity logs : when user does any action in the app then we need to save the logs
     await saveActivityLogsNotification({
-      description: "Joined",
       agencyId: invitationExists?.agencyId,
+      description: `Joined`,
+      subaccountId: undefined,
     });
 
     if (userDetails) {
@@ -165,16 +163,12 @@ export const veriyAndAcceptInvitation = async () => {
         },
       });
 
-      // delete the invitation
       await db.invitation.delete({
-        where: {
-          email: userDetails.email,
-        },
+        where: { email: userDetails.email },
       });
-      return userDetails;
-    } else {
-      return null;
-    }
+
+      return userDetails.agencyId;
+    } else return null;
   } else {
     const agency = await db.user.findUnique({
       where: {
@@ -283,4 +277,23 @@ export const upsertAgency = async (agency: Agency, price?: Plan) => {
     });
     return agencyDetails;
   } catch (error) {}
+};
+
+export const getNotoficationAndUser = async (agencyId: string) => {
+  try {
+    const response = await db.notification.findMany({
+      where: {
+        agencyId,
+      },
+      include: {
+        User: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    return response;
+  } catch (error) {
+    console.log("error", error);
+  }
 };
